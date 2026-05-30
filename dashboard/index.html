@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Intelligence Dashboard — Purplle</title>
+    <meta name="description" content="Real-time retail analytics dashboard for Purplle beauty stores">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- HEADER                                       -->
+    <!-- ============================================ -->
+    <header id="app-header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <h1>Store Intelligence</h1>
+            </div>
+            <span class="badge">LIVE</span>
+        </div>
+        <div class="header-right">
+            <select id="store-selector">
+                <option value="STORE_PRP_001">Purplle Store 001</option>
+            </select>
+            <div id="connection-status" class="status-dot disconnected" title="WebSocket disconnected"></div>
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main id="dashboard">
+        <!-- ---------------------------------------- -->
+        <!-- METRIC CARDS ROW                         -->
+        <!-- ---------------------------------------- -->
+        <section class="metrics-row" id="metrics-section">
+            <div class="metric-card" id="card-visitors">
+                <div class="metric-icon">👥</div>
+                <div class="metric-body">
+                    <span class="metric-label">Unique Visitors</span>
+                    <span class="metric-value" id="metric-visitors">—</span>
+                </div>
+            </div>
+            <div class="metric-card" id="card-conversion">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-body">
+                    <span class="metric-label">Conversion Rate</span>
+                    <span class="metric-value" id="metric-conversion">—</span>
+                </div>
+            </div>
+            <div class="metric-card" id="card-queue">
+                <div class="metric-icon">🧍</div>
+                <div class="metric-body">
+                    <span class="metric-label">Queue Depth</span>
+                    <span class="metric-value" id="metric-queue">—</span>
+                </div>
+            </div>
+            <div class="metric-card" id="card-revenue">
+                <div class="metric-icon">💰</div>
+                <div class="metric-body">
+                    <span class="metric-label">Revenue (INR)</span>
+                    <span class="metric-value" id="metric-revenue">—</span>
+                </div>
+            </div>
+            <div class="metric-card" id="card-abandonment">
+                <div class="metric-icon">🚪</div>
+                <div class="metric-body">
+                    <span class="metric-label">Abandonment Rate</span>
+                    <span class="metric-value" id="metric-abandonment">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------------------------------- -->
+        <!-- MAIN GRID: Funnel + Heatmap + Anomalies  -->
+        <!-- ---------------------------------------- -->
+        <section class="dashboard-grid">
+            <!-- FUNNEL -->
+            <div class="panel" id="funnel-panel">
+                <h2 class="panel-title">Conversion Funnel</h2>
+                <div id="funnel-chart" class="funnel-container">
+                    <div class="funnel-stage" data-stage="entry">
+                        <div class="funnel-bar" id="funnel-entry-bar"><span>0</span></div>
+                        <span class="funnel-label">Entry</span>
+                    </div>
+                    <div class="funnel-stage" data-stage="zone">
+                        <div class="funnel-bar" id="funnel-zone-bar"><span>0</span></div>
+                        <span class="funnel-label">Zone Visit</span>
+                    </div>
+                    <div class="funnel-stage" data-stage="billing">
+                        <div class="funnel-bar" id="funnel-billing-bar"><span>0</span></div>
+                        <span class="funnel-label">Billing Queue</span>
+                    </div>
+                    <div class="funnel-stage" data-stage="purchase">
+                        <div class="funnel-bar" id="funnel-purchase-bar"><span>0</span></div>
+                        <span class="funnel-label">Purchase</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HEATMAP -->
+            <div class="panel" id="heatmap-panel">
+                <h2 class="panel-title">Zone Heatmap</h2>
+                <div id="heatmap-grid" class="heatmap-container">
+                    <!-- Populated by JavaScript -->
+                    <p class="empty-state">No zone data yet</p>
+                </div>
+            </div>
+
+            <!-- ANOMALIES -->
+            <div class="panel" id="anomalies-panel">
+                <h2 class="panel-title">Active Anomalies</h2>
+                <div id="anomalies-list" class="anomalies-container">
+                    <p class="empty-state">No anomalies detected</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------------------------------- -->
+        <!-- LIVE EVENT FEED                          -->
+        <!-- ---------------------------------------- -->
+        <section class="panel full-width" id="event-feed-panel">
+            <h2 class="panel-title">Live Event Feed <span class="event-count" id="event-count">0 events</span></h2>
+            <div id="event-feed" class="event-feed-container">
+                <p class="empty-state">Waiting for events...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

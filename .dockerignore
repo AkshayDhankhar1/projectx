@@ -1,0 +1,51 @@
+# .dockerignore — Files to exclude from Docker build context
+# This makes Docker builds faster by not copying unnecessary files
+
+# Version control
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env/
+
+# Test files (not needed in production container)
+tests/
+.pytest_cache/
+htmlcov/
+.coverage
+pytest.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Resource videos (large, not needed in API container)
+Resources/
+
+# Documentation (not needed at runtime)
+docs/
+README.md
+
+# Pipeline (runs separately, not in API container)
+pipeline/
+
+# Detection model files
+yolov8n.pt
+*.onnx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Scripts (dev tools)
+scripts/
+extract_frames.py
+assertions.py

@@ -1,0 +1,64 @@
+# ============================================================
+# Docker Compose — Orchestrate Multiple Services
+# ============================================================
+# docker-compose.yml defines all the services (containers) that
+# make up our system and how they connect to each other.
+#
+# Running `docker compose up` starts everything in one command.
+# Running `docker compose down` stops everything cleanly.
+#
+# Our system has 2 services:
+# 1. api: The FastAPI intelligence API (port 8000)
+# 2. dashboard: An nginx web server for the live dashboard (port 3000)
+# ============================================================
+
+services:
+  # ----------------------------------------------------------
+  # Service 1: Intelligence API
+  # ----------------------------------------------------------
+  api:
+    # Build from the Dockerfile in the current directory
+    build: .
+    
+    # Map container port 8000 to host port 8000
+    # This means http://localhost:8000 reaches the API
+    ports:
+      - "8000:8000"
+    
+    # Mount the data directory as a volume.
+    # This means the database file (store.db) persists even if
+    # the container is stopped and restarted.
+    volumes:
+      - ./data:/app/data
+    
+    # Environment variables available inside the container
+    environment:
+      - DATABASE_PATH=/app/data/store.db
+      - POS_CSV_PATH=/app/data/pos_transactions.csv
+    
+    # Restart automatically if the container crashes
+    restart: unless-stopped
+
+  # ----------------------------------------------------------
+  # Service 2: Live Dashboard (nginx static file server)
+  # ----------------------------------------------------------
+  dashboard:
+    # Use the official nginx Alpine image (tiny, ~5MB)
+    image: nginx:alpine
+    
+    # Map container port 80 to host port 3000
+    # This means http://localhost:3000 shows the dashboard
+    ports:
+      - "3000:80"
+    
+    # Mount dashboard files directly into nginx's web root.
+    # :ro means "read-only" — the container can't modify these files.
+    volumes:
+      - ./dashboard:/usr/share/nginx/html:ro
+      - ./dashboard/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    
+    # Wait for the API to start before starting the dashboard
+    depends_on:
+      - api
+    
+    restart: unless-stopped

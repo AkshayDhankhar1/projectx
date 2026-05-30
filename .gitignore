@@ -1,0 +1,50 @@
+# .gitignore — Files to exclude from Git
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.env/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Database
+data/store.db
+data/store.db-wal
+data/store.db-shm
+
+# Detection outputs (generated, not source)
+data/events.jsonl
+
+# Model files (downloaded by ultralytics)
+yolov8n.pt
+*.onnx
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Docker
+*.log
+
+Resources/
+

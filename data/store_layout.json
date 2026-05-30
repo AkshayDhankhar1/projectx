@@ -1,0 +1,111 @@
+{
+  "stores": {
+    "STORE_PRP_001": {
+      "store_name": "Purplle Beauty Store 001",
+      "city": "BLR",
+      "open_hours": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "cameras": {
+        "CAM_FLOOR_01": {
+          "file": "CAM 1.mp4",
+          "type": "floor",
+          "description": "Main floor — top wall skincare brands (Korean, Clean Beauty)"
+        },
+        "CAM_FLOOR_02": {
+          "file": "CAM 2.mp4",
+          "type": "floor",
+          "description": "Main floor — bottom wall makeup brands (Lakme, Faces, Maybelline)"
+        },
+        "CAM_ENTRY_01": {
+          "file": "CAM 3.mp4",
+          "type": "entry_exit",
+          "description": "Store entrance/exit glass door with purplle signage"
+        },
+        "CAM_STORAGE_01": {
+          "file": "CAM 4.mp4",
+          "type": "storage",
+          "description": "Backroom storage area — no customer traffic expected"
+        },
+        "CAM_BILLING_01": {
+          "file": "CAM 5.mp4",
+          "type": "billing",
+          "description": "Billing/cash counter area with POS system"
+        }
+      },
+      "zones": {
+        "ENTRY": {
+          "description": "Store entrance/exit threshold with glass door",
+          "camera": "CAM_ENTRY_01",
+          "polygon_normalized": [[0.0, 0.0], [0.45, 0.0], [0.45, 1.0], [0.0, 1.0]]
+        },
+        "SKINCARE": {
+          "description": "Top wall — Salm, TFS, GV, DermDoc, Minimalist brands",
+          "camera": "CAM_FLOOR_01",
+          "polygon_normalized": [[0.0, 0.0], [0.75, 0.0], [0.75, 0.5], [0.0, 0.5]],
+          "brands": ["Salm", "TFS", "GV", "DermDoc", "Minimalist"]
+        },
+        "CLEAN_BEAUTY": {
+          "description": "Top wall extension — Aqualogica, Foxtale, JC",
+          "camera": "CAM_FLOOR_01",
+          "polygon_normalized": [[0.0, 0.5], [0.75, 0.5], [0.75, 1.0], [0.0, 1.0]],
+          "brands": ["Aqualogica", "Foxtale", "JC"]
+        },
+        "FRAGRANCE": {
+          "description": "Fragrance island display near center-left of store",
+          "camera": "CAM_FLOOR_01",
+          "polygon_normalized": [[0.15, 0.35], [0.35, 0.35], [0.35, 0.65], [0.15, 0.65]]
+        },
+        "FOH": {
+          "description": "Front of House — central display area with seating",
+          "camera": "CAM_FLOOR_01",
+          "polygon_normalized": [[0.25, 0.25], [0.6, 0.25], [0.6, 0.75], [0.25, 0.75]]
+        },
+        "MAKEUP": {
+          "description": "Bottom wall — Maybelline, Faces, Lakme, Swiss Beauty",
+          "camera": "CAM_FLOOR_02",
+          "polygon_normalized": [[0.1, 0.4], [1.0, 0.4], [1.0, 1.0], [0.1, 1.0]],
+          "brands": ["Maybelline", "Faces", "Lakme", "Swiss Beauty", "Mars+Nykaa"]
+        },
+        "MENS_CARE": {
+          "description": "Mens Care section on bottom wall",
+          "camera": "CAM_FLOOR_02",
+          "polygon_normalized": [[0.5, 0.7], [0.65, 0.7], [0.65, 1.0], [0.5, 1.0]]
+        },
+        "PREMIUM_BEAUTY": {
+          "description": "Good, L'oreal, Beauty premium section — bottom right wall",
+          "camera": "CAM_FLOOR_02",
+          "polygon_normalized": [[0.65, 0.7], [1.0, 0.7], [1.0, 1.0], [0.65, 1.0]],
+          "brands": ["Good", "Loreal", "Beauty"]
+        },
+        "MAKEUP_UNIT": {
+          "description": "Makeup trial/application unit — center of store",
+          "camera": "CAM_FLOOR_01",
+          "polygon_normalized": [[0.45, 0.3], [0.7, 0.3], [0.7, 0.6], [0.45, 0.6]]
+        },
+        "BILLING": {
+          "description": "Cash counter and POS billing area — right side of store",
+          "camera": "CAM_BILLING_01",
+          "polygon_normalized": [[0.0, 0.0], [0.6, 0.0], [0.6, 0.8], [0.0, 0.8]]
+        },
+        "ACCESSORIES": {
+          "description": "Accessories display near billing counter",
+          "camera": "CAM_BILLING_01",
+          "polygon_normalized": [[0.6, 0.0], [1.0, 0.0], [1.0, 1.0], [0.6, 1.0]]
+        }
+      },
+      "entry_line": {
+        "camera": "CAM_ENTRY_01",
+        "start_normalized": [0.35, 0.0],
+        "end_normalized": [0.35, 1.0],
+        "direction_description": "Person moving from right (outside) to left (inside) = ENTRY"
+      },
+      "dimensions_mm": {
+        "store_width": 4020,
+        "store_depth": 2594,
+        "notes": "Dimensions from revised store layout blueprint"
+      }
+    }
+  }
+}

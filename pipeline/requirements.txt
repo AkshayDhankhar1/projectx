@@ -1,0 +1,13 @@
+# ============================================================
+# Detection Pipeline Dependencies
+# ============================================================
+# ultralytics: YOLOv8 object detection framework
+ultralytics==8.3.145
+# supervision: computer vision utilities (tracking, zones, counting)
+supervision==0.25.1
+# opencv-python-headless: image/video processing (no GUI needed)
+opencv-python-headless==4.11.0.92
+# numpy: numerical computing (arrays, matrices)
+numpy==2.2.6
+# requests: HTTP client for posting events to the API
+requests==2.32.3
