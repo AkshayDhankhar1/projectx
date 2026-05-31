@@ -121,7 +121,10 @@ class EventEmitter:
 
     def _write_event(self, event: DetectionEvent) -> None:
         """Write one event as a JSON line to the output file."""
-        line = json.dumps(asdict(event), ensure_ascii=False)
+        data = asdict(event)
+        # Convert numpy bools to Python bools (numpy bools aren't JSON serializable)
+        data["is_staff"] = bool(data["is_staff"])
+        line = json.dumps(data, ensure_ascii=False)
         self._file.write(line + "\n")
         self._file.flush()  # Ensure it's written immediately
 
