@@ -28,11 +28,15 @@ WORKDIR /app
 # changes rarely, this layer is cached and pip install is skipped
 # on subsequent builds — saving minutes of build time.
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir requests
 
-# Copy application code
+# Copy application code and data
 COPY app/ ./app/
 COPY data/ ./data/
+COPY scripts/ ./scripts/
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 # Expose port 8000 for the API
 # This is documentation — it tells Docker users which port to map
@@ -43,8 +47,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
 
-# Run the API server using uvicorn
-# --host 0.0.0.0: listen on all network interfaces (required in containers)
-# --port 8000: the port number
-# --workers 2: run 2 worker processes for better throughput
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+# Run entrypoint script which auto-ingests events then starts uvicorn
+CMD ["bash", "entrypoint.sh"]

@@ -1,5 +1,4 @@
 # .dockerignore — Files to exclude from Docker build context
-# This makes Docker builds faster by not copying unnecessary files
 
 # Version control
 .git/
@@ -25,10 +24,6 @@ pytest.ini
 # Resource videos (large, not needed in API container)
 Resources/
 
-# Documentation (not needed at runtime)
-docs/
-README.md
-
 # Pipeline (runs separately, not in API container)
 pipeline/
 
@@ -45,7 +40,6 @@ Dockerfile
 docker-compose.yml
 .dockerignore
 
-# Scripts (dev tools)
-scripts/
+# Dev tools
 extract_frames.py
 assertions.py
