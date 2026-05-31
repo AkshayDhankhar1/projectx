@@ -26,8 +26,7 @@ data/store.db
 data/store.db-wal
 data/store.db-shm
 
-# Detection outputs (generated, not source)
-data/events.jsonl
+# Detection outputs are tracked (needed by Docker for auto-ingest)
 
 # Model files (downloaded by ultralytics)
 yolov8n.pt
