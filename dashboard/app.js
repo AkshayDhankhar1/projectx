@@ -17,16 +17,17 @@
 // Configuration
 // ============================================================
 
-// API base URL — when running via Docker Compose with nginx proxy,
-// requests go through /api/. When running locally, direct to port 8000.
-const API_BASE = window.location.port === '3000' 
-    ? '/api'                          // Through nginx proxy
-    : 'http://localhost:8000';        // Direct to API
+// API base URL — detect environment automatically
+const RAILWAY_API = 'https://projectx-production-82c1.up.railway.app';
+
+const API_BASE = window.location.hostname === 'localhost'
+    ? (window.location.port === '3000' ? '/api' : 'http://localhost:8000')
+    : RAILWAY_API;
 
 // WebSocket URL
-const WS_URL = window.location.port === '3000'
-    ? `ws://${window.location.host}/ws`     // Through nginx proxy
-    : 'ws://localhost:8000/ws';              // Direct
+const WS_URL = window.location.hostname === 'localhost'
+    ? (window.location.port === '3000' ? `ws://${window.location.host}/ws` : 'ws://localhost:8000/ws')
+    : RAILWAY_API.replace('https://', 'wss://') + '/ws';
 
 // How often to refresh metrics (milliseconds)
 const REFRESH_INTERVAL = 5000;
