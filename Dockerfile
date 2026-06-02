@@ -47,5 +47,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
     CMD python -c "import os, urllib.request; port = os.environ.get('PORT', '8000'); urllib.request.urlopen(f'http://localhost:{port}/health')" || exit 1
 
-# Run entrypoint script which auto-ingests events then starts uvicorn
-CMD ["bash", "entrypoint.sh"]
+# Pre-populate the SQLite database, then start the API server in the foreground
+CMD python scripts/db_prepopulate.py && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1
