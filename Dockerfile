@@ -45,7 +45,7 @@ EXPOSE 8000
 # Health check — Docker will periodically call this to verify the
 # container is working. If it fails 3 times, Docker restarts it.
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
+    CMD python -c "import os, urllib.request; port = os.environ.get('PORT', '8000'); urllib.request.urlopen(f'http://localhost:{port}/health')" || exit 1
 
 # Run entrypoint script which auto-ingests events then starts uvicorn
 CMD ["bash", "entrypoint.sh"]
